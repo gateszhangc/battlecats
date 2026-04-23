@@ -1,11 +1,11 @@
 {
-  "name": "Artemis II Wallpaper",
-  "short_name": "Artemis II",
-  "description": "Independent editorial collection of Artemis II wallpapers using publicly released NASA imagery with source credit.",
+  "name": "黄金にゃんこ塔 攻略まとめ",
+  "short_name": "黄金塔",
+  "description": "黄金にゃんこ塔の開催情報、報酬、風雲にゃんこ塔との違いを整理した非公式攻略メモ。",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#050912",
-  "theme_color": "#050912",
+  "background_color": "#100b05",
+  "theme_color": "#d8a12a",
   "icons": [
     {
       "src": "/assets/brand/favicon.png",

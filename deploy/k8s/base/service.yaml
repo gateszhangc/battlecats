@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: battlecats
+  labels:
+    app.kubernetes.io/name: battlecats
+    app.kubernetes.io/part-of: battlecats
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: battlecats
+    app.kubernetes.io/part-of: battlecats
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000

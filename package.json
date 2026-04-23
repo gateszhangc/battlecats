@@ -1,12 +1,14 @@
 {
-  "name": "artemis-2-wallpaper",
+  "name": "battlecats-golden-tower",
   "version": "1.0.0",
   "private": true,
-  "description": "Static Artemis II wallpaper site built from publicly released NASA imagery.",
+  "description": "Static Japanese SEO guide for 黄金にゃんこ塔.",
   "scripts": {
+    "brand": "python3 scripts/generate_brand_assets.py",
     "start": "node server.js",
     "test": "playwright test",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "test:live": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2"

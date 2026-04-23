@@ -1,28 +1,32 @@
 const { test, expect } = require("@playwright/test");
 
-test.describe("Artemis II wallpaper site", () => {
-  test("desktop homepage renders key content and filters wallpapers", async ({ page }) => {
+test.describe("Golden Nyanko Tower static site", () => {
+  test("desktop homepage renders SEO content and brand assets", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page).toHaveTitle(/Artemis II Wallpaper/i);
-    await expect(page.locator("h1")).toHaveText("Artemis II Wallpaper");
-    await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /publicly released NASA mission imagery/i);
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://artemis-2-wallpaper.lol/");
+    await expect(page).toHaveTitle(/黄金にゃんこ塔 攻略と報酬まとめ/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    await expect(page.locator("h1")).toHaveText("黄金にゃんこ塔");
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /風雲にゃんこ塔との違い/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://battlecats.lol/");
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://battlecats.lol/assets/brand/social-card.png");
+    await expect(page.locator('meta[name="googlebot"]')).toHaveAttribute("content", /index,follow/);
 
-    const wallpaperCards = page.locator(".wallpaper-card");
-    await expect(wallpaperCards).toHaveCount(10);
-    await expect(page.getByText("Not an official NASA website.")).toBeVisible();
+    await expect(page.getByRole("navigation", { name: "主要ナビゲーション" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "報酬は「短期でまとめて回収」が基本" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "攻略前に決めること" })).toBeVisible();
+    await expect(page.getByText("非公式ファンサイト")).toBeVisible();
+    await expect(page.locator('script[src*="googletagmanager"], script[src*="clarity"]')).toHaveCount(0);
 
-    await page.getByRole("button", { name: "Posters" }).click();
-    await expect(page.locator(".wallpaper-card:not([hidden])")).toHaveCount(2);
-    await expect(page.locator("[data-results-count]")).toHaveText("Showing 2 wallpapers");
+    const inlineScripts = await page.locator("script").evaluateAll((nodes) =>
+      nodes.map((node) => node.textContent || "").join("\n")
+    );
+    expect(inlineScripts).not.toMatch(/gtag|clarity/i);
 
-    await page.getByRole("button", { name: "All" }).click();
-    await expect(page.locator(".wallpaper-card:not([hidden])")).toHaveCount(10);
-
-    for (const image of await page.locator("img").all()) {
-      await image.scrollIntoViewIfNeeded();
-    }
+    const faqItems = page.locator(".faq-list details");
+    await expect(faqItems).toHaveCount(6);
+    await page.getByText("一番注意する階はどこですか？").click();
+    await expect(page.getByText("メタル対策を含めた専用編成")).toBeVisible();
 
     const imagesLoaded = await page.evaluate(() =>
       Array.from(document.images).every((image) => image.complete && image.naturalWidth > 0)
@@ -30,7 +34,7 @@ test.describe("Artemis II wallpaper site", () => {
     expect(imagesLoaded).toBe(true);
   });
 
-  test("mobile layout stays within viewport and keeps gallery accessible", async ({ browser }) => {
+  test("mobile layout stays inside viewport and anchor navigation works", async ({ browser }) => {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },
       isMobile: true
@@ -38,18 +42,14 @@ test.describe("Artemis II wallpaper site", () => {
     const page = await context.newPage();
 
     await page.goto("/");
-
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Explore the Collection" })).toBeVisible();
-    await page.getByRole("link", { name: "Explore the Collection" }).click();
-    await expect(page.locator("#gallery")).toBeInViewport();
+    await page.getByRole("navigation", { name: "主要ナビゲーション" }).getByRole("link", { name: "報酬", exact: true }).click();
+    await expect(page.locator("#rewards")).toBeInViewport();
 
-    const overflow = await page.evaluate(() => {
-      return document.documentElement.scrollWidth - window.innerWidth;
-    });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
 
-    await expect(page.locator(".wallpaper-card")).toHaveCount(10);
+    await expect(page.getByRole("link", { name: "PONOS 公式ニュース：超水曜にゃんこDAY 開催告知" })).toBeVisible();
     await context.close();
   });
 });

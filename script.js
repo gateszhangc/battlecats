@@ -1,41 +1,31 @@
 const topbar = document.querySelector("[data-topbar]");
-const filterButtons = Array.from(document.querySelectorAll(".filter-button"));
-const wallpaperCards = Array.from(document.querySelectorAll(".wallpaper-card"));
-const resultsCount = document.querySelector("[data-results-count]");
-const yearNode = document.querySelector("#current-year");
+const revealItems = document.querySelectorAll(".reveal");
 
-const updateResults = (filter) => {
-  let visible = 0;
-
-  wallpaperCards.forEach((card) => {
-    const tags = (card.dataset.tags || "").split(" ");
-    const matches = filter === "all" || tags.includes(filter);
-    card.hidden = !matches;
-    if (matches) visible += 1;
-  });
-
-  if (resultsCount) {
-    resultsCount.textContent = `Showing ${visible} wallpaper${visible === 1 ? "" : "s"}`;
+const setTopbarState = () => {
+  if (!topbar) {
+    return;
   }
+
+  topbar.classList.toggle("is-scrolled", window.scrollY > 16);
 };
 
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    filterButtons.forEach((entry) => entry.classList.remove("is-active"));
-    button.classList.add("is-active");
-    updateResults(button.dataset.filter || "all");
-  });
-});
+setTopbarState();
+window.addEventListener("scroll", setTopbarState, { passive: true });
 
-if (yearNode) {
-  yearNode.textContent = new Date().getFullYear();
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+  );
+
+  revealItems.forEach((item) => observer.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add("is-visible"));
 }
-
-const handleScroll = () => {
-  if (!topbar) return;
-  topbar.classList.toggle("is-scrolled", window.scrollY > 12);
-};
-
-window.addEventListener("scroll", handleScroll, { passive: true });
-handleScroll();
-updateResults("all");

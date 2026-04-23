@@ -1,165 +1,152 @@
-#!/usr/bin/env python3
-from __future__ import annotations
-
 from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import math
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
-
-
-ROOT = Path(__file__).resolve().parent.parent
-BRAND_DIR = ROOT / "assets" / "brand"
-FONT_DIR = ROOT / "assets" / "fonts"
-
-TEXT_FONT = FONT_DIR / "Tektur-Medium.ttf"
-BODY_FONT = FONT_DIR / "InstrumentSans-Regular.ttf"
-
-BG = (7, 10, 20, 255)
-PANEL = (15, 23, 43, 240)
-STROKE = (86, 108, 143, 255)
-ORANGE = (255, 137, 58, 255)
-ICE = (220, 233, 255, 255)
-ASH = (108, 126, 158, 255)
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "assets" / "brand"
+OUT.mkdir(parents=True, exist_ok=True)
 
 
-def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
-    return ImageFont.truetype(str(path), size=size)
+def font(size, bold=False):
+    candidates = [
+        "/System/Library/Fonts/Hiragino Sans GB.ttc",
+        "/System/Library/Fonts/HelveticaNeue.ttc",
+        "/System/Library/Fonts/Avenir Next.ttc",
+        "/Library/Fonts/Arial Unicode.ttf",
+        "/System/Library/Fonts/SFNS.ttf",
+    ]
+    for candidate in candidates:
+        try:
+            return ImageFont.truetype(candidate, size=size, index=1 if bold else 0)
+        except Exception:
+            continue
+    return ImageFont.load_default()
 
 
-def draw_mark(base: Image.Image, with_panel: bool = False) -> None:
-    draw = ImageDraw.Draw(base)
-    width, height = base.size
+def text_center(draw, xy, text, face, fill, anchor="mm", stroke_width=0, stroke_fill=None):
+    draw.text(xy, text, font=face, fill=fill, anchor=anchor, stroke_width=stroke_width, stroke_fill=stroke_fill)
 
-    if with_panel:
-        draw.rounded_rectangle(
-            (32, 32, width - 32, height - 32),
-            radius=width // 6,
-            fill=PANEL,
-            outline=(35, 52, 80, 255),
-            width=3,
+
+def gradient(size, top, bottom):
+    width, height = size
+    img = Image.new("RGB", size, top)
+    px = img.load()
+    for y in range(height):
+        t = y / max(1, height - 1)
+        color = tuple(int(top[i] * (1 - t) + bottom[i] * t) for i in range(3))
+        for x in range(width):
+            px[x, y] = color
+    return img.convert("RGBA")
+
+
+def rounded_rect(draw, box, radius, fill, outline=None, width=1):
+    draw.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
+
+
+def draw_mark(size=512, with_bg=True):
+    img = gradient((size, size), (34, 19, 6), (10, 7, 4))
+    draw = ImageDraw.Draw(img, "RGBA")
+
+    cx = cy = size / 2
+    if with_bg:
+        for angle in range(0, 360, 12):
+            outer = size * 0.47
+            inner = size * 0.18
+            rad = math.radians(angle)
+            draw.line(
+                (cx + math.cos(rad) * inner, cy + math.sin(rad) * inner, cx + math.cos(rad) * outer, cy + math.sin(rad) * outer),
+                fill=(255, 214, 107, 32),
+                width=max(1, size // 130),
+            )
+
+    for offset, alpha in [(18, 50), (0, 110)]:
+        tower = [
+            (cx, size * 0.12 + offset),
+            (size * 0.82, size * 0.88 + offset),
+            (size * 0.18, size * 0.88 + offset),
+        ]
+        draw.polygon(tower, fill=(216, 161, 42, alpha))
+
+    tower = [(cx, size * 0.11), (size * 0.82, size * 0.88), (size * 0.18, size * 0.88)]
+    draw.polygon(tower, fill=(238, 171, 42, 255))
+    draw.polygon([(cx, size * 0.11), (size * 0.82, size * 0.88), (cx, size * 0.78)], fill=(121, 65, 16, 170))
+    draw.polygon([(cx, size * 0.11), (size * 0.18, size * 0.88), (cx, size * 0.78)], fill=(255, 226, 131, 160))
+
+    left_ear = [(size * 0.34, size * 0.18), (size * 0.45, size * 0.36), (size * 0.25, size * 0.36)]
+    right_ear = [(size * 0.66, size * 0.18), (size * 0.75, size * 0.36), (size * 0.55, size * 0.36)]
+    draw.polygon(left_ear, fill=(255, 226, 131, 255))
+    draw.polygon(right_ear, fill=(255, 226, 131, 255))
+
+    for y, width in [(0.33, 0.24), (0.45, 0.34), (0.58, 0.45), (0.71, 0.56), (0.84, 0.66)]:
+        bar_w = size * width
+        bar_h = max(5, size * 0.03)
+        rounded_rect(
+            draw,
+            (cx - bar_w / 2, size * y - bar_h / 2, cx + bar_w / 2, size * y + bar_h / 2),
+            radius=int(bar_h / 2),
+            fill=(41, 20, 4, 205),
         )
 
-    cx, cy = width / 2, height / 2
-    scale = min(width, height)
-    orbit_box = (
-        cx - scale * 0.28,
-        cy - scale * 0.20,
-        cx + scale * 0.28,
-        cy + scale * 0.20,
-    )
-    secondary_box = (
-        cx - scale * 0.17,
-        cy - scale * 0.34,
-        cx + scale * 0.17,
-        cy + scale * 0.34,
-    )
+    face_r = size * 0.118
+    draw.ellipse((cx - face_r, size * 0.51 - face_r, cx + face_r, size * 0.51 + face_r), fill=(255, 242, 196, 220), outline=(55, 25, 4, 185), width=max(3, size // 80))
+    eye_r = max(3, size * 0.014)
+    draw.ellipse((cx - size * 0.041 - eye_r, size * 0.49 - eye_r, cx - size * 0.041 + eye_r, size * 0.49 + eye_r), fill=(31, 15, 3, 255))
+    draw.ellipse((cx + size * 0.041 - eye_r, size * 0.49 - eye_r, cx + size * 0.041 + eye_r, size * 0.49 + eye_r), fill=(31, 15, 3, 255))
+    text_center(draw, (cx, size * 0.58), "50F", font(int(size * 0.07), bold=True), (31, 15, 3, 255))
 
-    glow = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    glow_draw = ImageDraw.Draw(glow)
-    glow_draw.ellipse(
-        (cx - scale * 0.08, cy - scale * 0.08, cx + scale * 0.08, cy + scale * 0.08),
-        fill=(255, 137, 58, 220),
-    )
-    glow_draw.arc(orbit_box, start=215, end=15, fill=(255, 137, 58, 180), width=max(4, int(scale * 0.028)))
-    glow = glow.filter(ImageFilter.GaussianBlur(radius=scale * 0.015))
-    base.alpha_composite(glow)
+    draw.ellipse((size * 0.12, size * 0.15, size * 0.23, size * 0.26), outline=(255, 226, 131, 210), width=max(3, size // 80))
+    draw.ellipse((size * 0.75, size * 0.22, size * 0.86, size * 0.33), outline=(255, 226, 131, 180), width=max(3, size // 90))
+    draw.ellipse((size * 0.72, size * 0.72, size * 0.84, size * 0.84), outline=(255, 226, 131, 150), width=max(3, size // 90))
 
-    draw.arc(orbit_box, start=210, end=20, fill=ORANGE, width=max(4, int(scale * 0.025)))
-    draw.arc(secondary_box, start=122, end=325, fill=ICE, width=max(2, int(scale * 0.018)))
-
-    moon_box = (
-        cx - scale * 0.09,
-        cy - scale * 0.09,
-        cx + scale * 0.09,
-        cy + scale * 0.09,
-    )
-    draw.ellipse(moon_box, fill=ICE)
-    draw.ellipse(
-        (
-            moon_box[0] + scale * 0.05,
-            moon_box[1] - scale * 0.008,
-            moon_box[2] + scale * 0.06,
-            moon_box[3] + scale * 0.008,
-        ),
-        fill=BG if not with_panel else PANEL,
-    )
-
-    capsule = [
-        (cx - scale * 0.03, cy + scale * 0.13),
-        (cx + scale * 0.04, cy + scale * 0.04),
-        (cx + scale * 0.08, cy + scale * 0.08),
-        (cx + scale * 0.01, cy + scale * 0.17),
-    ]
-    draw.polygon(capsule, fill=ASH, outline=ICE)
-    draw.line(
-        (cx - scale * 0.20, cy + scale * 0.24, cx + scale * 0.22, cy + scale * 0.24),
-        fill=STROKE,
-        width=max(2, int(scale * 0.012)),
-    )
-    draw.ellipse(
-        (cx + scale * 0.23, cy - scale * 0.18, cx + scale * 0.27, cy - scale * 0.14),
-        fill=ORANGE,
-    )
+    return img
 
 
-def create_mark() -> None:
-    image = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0))
-    draw_mark(image)
-    image.save(BRAND_DIR / "logo-mark.png")
+def wordmark():
+    width, height = 1500, 420
+    img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    mark = draw_mark(330).resize((320, 320), Image.Resampling.LANCZOS)
+    img.alpha_composite(mark, (42, 52))
+    draw = ImageDraw.Draw(img, "RGBA")
+
+    draw.text((400, 92), "GOLDEN", font=font(72, bold=True), fill=(255, 214, 107, 255), anchor="la")
+    draw.text((400, 166), "NYANKO TOWER", font=font(96, bold=True), fill=(255, 242, 196, 255), anchor="la")
+    draw.line((404, 282, 1190, 282), fill=(216, 161, 42, 210), width=4)
+    draw.ellipse((1220, 36, 1344, 160), fill=(255, 214, 107, 235), outline=(255, 242, 196, 180), width=5)
+    draw.text((1282, 92), "50F", font=font(62, bold=True), fill=(31, 15, 3, 255), anchor="mm")
+    draw.text((408, 306), "OGON NYANKO TO / battlecats.lol", font=font(42), fill=(216, 193, 141, 255), anchor="la")
+    return img
 
 
-def create_wordmark() -> None:
-    image = Image.new("RGBA", (1500, 480), (0, 0, 0, 0))
-    mark = Image.new("RGBA", (420, 420), (0, 0, 0, 0))
-    draw_mark(mark, with_panel=True)
-    image.alpha_composite(mark, (24, 30))
-
-    draw = ImageDraw.Draw(image)
-    headline_font = font(TEXT_FONT, 116)
-    meta_font = font(BODY_FONT, 34)
-    draw.text((470, 92), "ORBITAL", font=headline_font, fill=ICE)
-    draw.text((470, 208), "SIGNAL", font=headline_font, fill=ORANGE)
-    draw.text((476, 336), "ARTEMIS II WALLPAPER ARCHIVE", font=meta_font, fill=(154, 173, 202, 255))
-    draw.line((474, 316, 1148, 316), fill=STROKE, width=3)
-    image.save(BRAND_DIR / "logo-wordmark.png")
-
-
-def create_favicon() -> None:
-    favicon = Image.new("RGBA", (256, 256), BG)
-    draw_mark(favicon, with_panel=True)
-    favicon.save(BRAND_DIR / "favicon.png")
-    favicon.resize((180, 180), Image.Resampling.LANCZOS).save(BRAND_DIR / "apple-touch-icon.png")
-
-
-def create_social_card() -> None:
+def social_card():
     width, height = 1200, 630
-    image = Image.new("RGBA", (width, height), BG)
-    draw = ImageDraw.Draw(image)
-    draw.rounded_rectangle((36, 36, width - 36, height - 36), radius=40, outline=(29, 47, 76, 255), width=4)
-    draw.ellipse((-140, -180, 420, 380), fill=(18, 29, 55, 255))
-    draw.ellipse((760, 260, 1310, 820), fill=(13, 19, 36, 255))
-    draw.arc((120, 90, 530, 420), start=210, end=8, fill=ORANGE, width=14)
-    draw.arc((160, 60, 460, 480), start=125, end=330, fill=ICE, width=10)
-    draw.ellipse((260, 180, 380, 300), fill=ICE)
-    draw.ellipse((320, 170, 420, 310), fill=BG)
+    img = gradient((width, height), (38, 21, 6), (9, 6, 4))
+    draw = ImageDraw.Draw(img, "RGBA")
 
-    headline = font(TEXT_FONT, 78)
-    subhead = font(BODY_FONT, 30)
-    micro = font(BODY_FONT, 22)
-    draw.text((580, 150), "ARTEMIS II", font=headline, fill=ICE)
-    draw.text((580, 240), "WALLPAPER", font=headline, fill=ORANGE)
-    draw.text((582, 352), "HD NASA lunar mission backgrounds for desktop and phone", font=subhead, fill=(172, 188, 213, 255))
-    draw.text((582, 430), "Non-official editorial collection with source credit", font=micro, fill=(132, 151, 181, 255))
-    draw.line((582, 405, 1042, 405), fill=STROKE, width=3)
-    image.save(BRAND_DIR / "social-card.png")
+    for angle in range(0, 360, 8):
+        rad = math.radians(angle)
+        draw.line((880, 315, 880 + math.cos(rad) * 410, 315 + math.sin(rad) * 410), fill=(255, 214, 107, 26), width=2)
+
+    rounded_rect(draw, (60, 60, 1140, 570), 44, fill=(255, 214, 107, 18), outline=(255, 214, 107, 70), width=2)
+    rounded_rect(draw, (88, 88, 666, 542), 30, fill=(25, 15, 7, 188), outline=(255, 214, 107, 44), width=2)
+    rounded_rect(draw, (704, 108, 1122, 520), 18, fill=(25, 15, 7, 228), outline=(255, 214, 107, 90), width=2)
+    mark = draw_mark(420).filter(ImageFilter.SHARPEN)
+    img.alpha_composite(mark, (704, 100))
+    draw.text((118, 144), "GOLDEN", font=font(56, bold=True), fill=(255, 214, 107, 255), anchor="la")
+    draw.text((118, 224), "NYANKO TOWER", font=font(78, bold=True), fill=(255, 242, 196, 255), anchor="la")
+    draw.text((122, 334), "rewards up / 50F / metal prep", font=font(32), fill=(216, 193, 141, 255), anchor="la")
+    draw.text((122, 386), "fan strategy memo", font=font(32), fill=(216, 193, 141, 255), anchor="la")
+    draw.text((104, 494), "battlecats.lol", font=font(36, bold=True), fill=(255, 214, 107, 255), anchor="la")
+    return img
 
 
-def main() -> None:
-    BRAND_DIR.mkdir(parents=True, exist_ok=True)
-    create_mark()
-    create_wordmark()
-    create_favicon()
-    create_social_card()
-    print(f"Brand assets generated in {BRAND_DIR}")
+def main():
+    mark = draw_mark(512)
+    mark.save(OUT / "logo-mark.png")
+    mark.resize((256, 256), Image.Resampling.LANCZOS).save(OUT / "favicon.png")
+    mark.resize((180, 180), Image.Resampling.LANCZOS).save(OUT / "apple-touch-icon.png")
+    mark.resize((256, 256), Image.Resampling.LANCZOS).save(ROOT / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48), (128, 128), (256, 256)])
+    wordmark().save(OUT / "logo-wordmark.png")
+    social_card().save(OUT / "social-card.png")
 
 
 if __name__ == "__main__":
