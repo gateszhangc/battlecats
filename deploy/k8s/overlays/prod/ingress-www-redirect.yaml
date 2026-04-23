@@ -4,7 +4,7 @@ metadata:
   name: battlecats-live-redirect
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/permanent-redirect: https://battlecats.lol$request_uri
+    nginx.ingress.kubernetes.io/permanent-redirect: https://battlecats.lol
     nginx.ingress.kubernetes.io/permanent-redirect-code: "308"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
