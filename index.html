@@ -12,7 +12,7 @@
       name="keywords"
       content="黄金にゃんこ塔, 黄金にゃんこ塔 攻略, 黄金にゃんこ塔 報酬, にゃんこ大戦争 黄金にゃんこ塔, 風雲にゃんこ塔 違い"
     />
-    <meta name="theme-color" content="#d8a12a" />
+    <meta name="theme-color" content="#f5efe4" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="googlebot" content="index,follow,max-image-preview:large" />
     <meta name="author" content="battlecats.lol" />
@@ -36,9 +36,18 @@
     <meta property="og:image:alt" content="黄金にゃんこ塔の黒金ブランドカード" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="黄金にゃんこ塔 攻略と報酬まとめ" />
-    <meta name="twitter:description" content="黄金にゃんこ塔の報酬、ミッション、風雲にゃんこ塔との違いを整理した非公式攻略メモ。" />
+    <meta
+      name="twitter:description"
+      content="黄金にゃんこ塔の報酬、ミッション、風雲にゃんこ塔との違いを整理した非公式攻略メモ。"
+    />
     <meta name="twitter:image" content="https://battlecats.lol/assets/brand/social-card.png" />
     <meta name="twitter:image:alt" content="黄金にゃんこ塔の黒金ブランドカード" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script type="application/ld+json">
       {
@@ -104,76 +113,120 @@
     <a class="skip-link" href="#overview">本文へスキップ</a>
     <div class="site-shell">
       <header class="topbar" data-topbar>
-        <a class="brand" href="#top" aria-label="battlecats.lol home">
-          <img src="assets/brand/logo-wordmark.png" alt="Golden Nyanko Tower battlecats.lol" width="1500" height="420" />
-        </a>
-        <nav class="nav" aria-label="主要ナビゲーション">
-          <a href="#overview">概要</a>
-          <a href="#rewards">報酬</a>
-          <a href="#strategy">攻略</a>
-          <a href="#faq">FAQ</a>
-        </nav>
+        <div class="topbar-frame">
+          <a class="brand" href="#top" aria-label="battlecats.lol home">
+            <img src="assets/brand/logo-mark.png" alt="" width="512" height="512" />
+            <div class="brand-copy">
+              <p class="brand-name">battlecats.lol</p>
+              <p class="brand-tag">黄金にゃんこ塔 攻略メモ</p>
+            </div>
+          </a>
+
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="メニューを開く"
+            aria-controls="site-navigation"
+            aria-expanded="false"
+            data-nav-toggle
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div class="nav-panel" id="site-navigation" data-nav>
+            <nav class="nav" aria-label="主要ナビゲーション">
+              <a href="#overview">概要</a>
+              <a href="#rewards">報酬</a>
+              <a href="#strategy">攻略</a>
+              <a href="#faq">FAQ</a>
+            </nav>
+            <a
+              class="header-link"
+              href="https://www.ponos.jp/news/2026/04/%E3%80%8E%E3%81%AB%E3%82%83%E3%82%93%E3%81%93%E5%A4%A7%E6%88%A6%E4%BA%89%E3%80%8F%E6%9C%9F%E9%96%93%E9%99%90%E5%AE%9A%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%80%8C%E8%B6%85%E6%B0%B4%E6%9B%9C%E3%81%AB/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              PONOS 公式ニュース
+            </a>
+          </div>
+        </div>
       </header>
 
       <main id="top">
         <section class="hero section" aria-labelledby="hero-title">
           <div class="hero-copy reveal">
-            <p class="eyebrow">非公式攻略メモ / checked 2026.04.23</p>
+            <div class="hero-badges">
+              <span class="badge badge-primary">黄金イベント整理</span>
+              <span class="badge">非公式ファンサイト</span>
+            </div>
+            <p class="eyebrow">The limited tower, explained</p>
             <h1 id="hero-title">黄金にゃんこ塔</h1>
             <p class="hero-dek">
-              報酬が大きく増えた特別版のにゃんこ塔。開催期間、報酬の見どころ、風雲にゃんこ塔との違い、50階で意識したいメタル対策を一画面で確認できます。
+              報酬が大きく増えた特別版のにゃんこ塔。開催期間、回収優先度、風雲にゃんこ塔との違い、50階で必要になるメタル対策を一画面で整理した非公式メモです。
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href="#rewards">報酬まとめを見る</a>
               <a class="button button-secondary" href="#strategy">攻略ポイントへ</a>
             </div>
-            <p class="notice">
-              このページはファン運営の非公式まとめです。最終判断はゲーム内告知と公式発表を確認してください。
-            </p>
-          </div>
-
-          <div class="hero-art reveal" aria-label="黄金の塔を表現した装飾イラスト">
-            <div class="sunburst" aria-hidden="true"></div>
-            <div class="tower">
-              <span class="cat-ear left" aria-hidden="true"></span>
-              <span class="cat-ear right" aria-hidden="true"></span>
-              <span class="floor floor-1"></span>
-              <span class="floor floor-2"></span>
-              <span class="floor floor-3"></span>
-              <span class="floor floor-4"></span>
-              <span class="floor floor-5"></span>
-              <span class="tower-face">50F</span>
+            <div class="metric-grid" aria-label="重要ポイント">
+              <article class="metric-tab">
+                <p class="metric-label">開催</p>
+                <p class="metric-value">5日間の特別塔</p>
+                <p class="metric-copy">2026年4月の超水曜にゃんこDAYでは、短期集中の回収イベントとして案内されています。</p>
+              </article>
+              <article class="metric-tab">
+                <p class="metric-label">階層</p>
+                <p class="metric-value">全50階</p>
+                <p class="metric-copy">通常塔を登れる戦力が前提。序盤を素早く抜けて後半の対策に時間を残す構成です。</p>
+              </article>
+              <article class="metric-tab">
+                <p class="metric-label">重点</p>
+                <p class="metric-value">50階のメタル対策</p>
+                <p class="metric-copy">最終階だけ別物として見た方が安全です。クリティカル役と量産壁を先に用意します。</p>
+              </article>
             </div>
-            <div class="coin coin-a" aria-hidden="true"></div>
-            <div class="coin coin-b" aria-hidden="true"></div>
-            <div class="coin coin-c" aria-hidden="true"></div>
+          </div>
+
+          <div class="hero-card reveal">
+            <article class="poster-card" aria-labelledby="poster-title">
+              <div class="poster-topline">
+                <span>Golden tower snapshot</span>
+                <span>Source-backed</span>
+              </div>
+              <div class="poster-stage" aria-label="黄金の塔を表現した装飾イラスト">
+                <div class="poster-sun" aria-hidden="true"></div>
+                <div class="orbit orbit-a" aria-hidden="true"></div>
+                <div class="orbit orbit-b" aria-hidden="true"></div>
+                <div class="orbit orbit-c" aria-hidden="true"></div>
+                <div class="tower">
+                  <span class="cat-ear left" aria-hidden="true"></span>
+                  <span class="cat-ear right" aria-hidden="true"></span>
+                  <span class="floor floor-1" aria-hidden="true"></span>
+                  <span class="floor floor-2" aria-hidden="true"></span>
+                  <span class="floor floor-3" aria-hidden="true"></span>
+                  <span class="floor floor-4" aria-hidden="true"></span>
+                  <span class="floor floor-5" aria-hidden="true"></span>
+                  <span class="tower-face">50F</span>
+                </div>
+              </div>
+              <div class="poster-notes">
+                <article class="poster-note">
+                  <p class="poster-label">Primary read</p>
+                  <h2 id="poster-title">短期開催で報酬をまとめて回収する塔</h2>
+                  <p>報酬量が増えた期間限定塔で、通常塔よりも優先して登る価値があります。</p>
+                </article>
+                <article class="poster-note">
+                  <p class="poster-label">Difference</p>
+                  <p>風雲にゃんこ塔との差分は、報酬量と50階の対策。終盤だけ編成思想を切り替えます。</p>
+                </article>
+              </div>
+            </article>
           </div>
         </section>
 
-        <section class="quick-grid section" aria-label="重要ポイント">
-          <article class="quick-card reveal">
-            <span>開催</span>
-            <strong>5日間の特別塔</strong>
-            <p>2026年4月の超水曜にゃんこDAYでは、報酬増量の黄金にゃんこ塔が案内されています。</p>
-          </article>
-          <article class="quick-card reveal">
-            <span>階層</span>
-            <strong>全50階</strong>
-            <p>風雲にゃんこ塔経験者向け。後半は属性対策と再挑戦用の統率力管理が重要です。</p>
-          </article>
-          <article class="quick-card reveal">
-            <span>差分</span>
-            <strong>報酬量が上位</strong>
-            <p>チケット系は追加、その他の多くは増量。短期開催なので回収優先度は高めです。</p>
-          </article>
-          <article class="quick-card reveal">
-            <span>50階</span>
-            <strong>メタル対策</strong>
-            <p>最終階は風雲と同じ感覚で入ると崩れやすく、クリティカル役を意識します。</p>
-          </article>
-        </section>
-
-        <section class="section panel-grid" id="overview">
+        <section class="section editorial-section" id="overview">
           <div class="section-heading reveal">
             <p class="eyebrow">Overview</p>
             <h2>黄金にゃんこ塔とは</h2>
@@ -181,170 +234,225 @@
               風雲にゃんこ塔をベースにした、報酬重視の期間限定コンテンツです。通常塔を登れる戦力があるなら、開催中に優先して進める価値があります。
             </p>
           </div>
-          <div class="info-panel reveal">
-            <dl class="fact-list">
-              <div>
-                <dt>対象イベント</dt>
-                <dd>超水曜にゃんこDAY 関連の限定開催</dd>
-              </div>
-              <div>
-                <dt>開催目安</dt>
-                <dd>公式発表では「5日間開催」。攻略情報では 2026/4/22 0:00 から 4/26 23:59 と整理されています。</dd>
-              </div>
-              <div>
-                <dt>塔の構成</dt>
-                <dd>1階から50階までを順番に攻略する形式</dd>
-              </div>
-              <div>
-                <dt>優先する人</dt>
-                <dd>報酬をまとめて回収したい中級者以上、風雲塔をある程度進められるプレイヤー</dd>
-              </div>
-            </dl>
+          <div class="editorial-body overview-grid">
+            <article class="info-card reveal">
+              <p class="card-kicker">開催窓口</p>
+              <h3>超水曜にゃんこDAY 連動</h3>
+              <p>PONOS の公開告知では、黄金にゃんこ塔が期間限定イベントの一部として案内されています。</p>
+            </article>
+            <article class="info-card reveal">
+              <p class="card-kicker">開催目安</p>
+              <h3>2026/4/22 0:00 から 4/26 23:59</h3>
+              <p>攻略情報ではこの5日間で整理されています。最終確認はゲーム内告知を優先してください。</p>
+            </article>
+            <article class="info-card reveal">
+              <p class="card-kicker">塔の構成</p>
+              <h3>1階から50階までの連続攻略</h3>
+              <p>途中で止まっても回収価値はありますが、後半は敵構成に合わせた再編成が前提になります。</p>
+            </article>
+            <article class="info-card reveal">
+              <p class="card-kicker">優先する人</p>
+              <h3>報酬効率を重視する中級者以上</h3>
+              <p>通常の風雲塔をある程度進められるプレイヤーほど、短期間で得られる見返りが大きいイベントです。</p>
+            </article>
           </div>
         </section>
 
-        <section class="section" id="rewards">
-          <div class="section-heading centered reveal">
+        <section class="section editorial-section" id="rewards">
+          <div class="section-heading reveal">
             <p class="eyebrow">Rewards</p>
             <h2>報酬は「短期でまとめて回収」が基本</h2>
-            <p>黄金にゃんこ塔は報酬量が魅力です。細かい階層表を暗記するより、まずは何を狙う塔なのかを押さえます。</p>
+            <p>黄金にゃんこ塔は報酬量が魅力です。細かい階層表より先に、何を優先して取り切る塔なのかを押さえます。</p>
           </div>
-          <div class="reward-grid">
-            <article class="reward-card reveal">
-              <span class="reward-icon">T</span>
-              <h3>チケット系</h3>
-              <p>にゃんこチケットやレアチケットの回収効率が高く、開催中に登る最大の理由になります。</p>
-            </article>
-            <article class="reward-card reveal">
-              <span class="reward-icon">M</span>
-              <h3>マタタビ・素材</h3>
-              <p>育成素材がまとまって手に入りやすいので、進化待ちキャラが多いほど価値が上がります。</p>
-            </article>
-            <article class="reward-card reveal">
-              <span class="reward-icon">XP</span>
-              <h3>XP・アイテム</h3>
-              <p>ネコボン、スニャイパー、XPなど、周回や高難度挑戦を支える消耗品も狙えます。</p>
-            </article>
-            <article class="reward-card reveal">
-              <span class="reward-icon">EX</span>
-              <h3>ミッション報酬</h3>
-              <p>30階、40階、50階の到達ミッションは、対象キャラを未取得なら特に確認しておきたい枠です。</p>
-            </article>
-          </div>
-
-          <div class="comparison-card reveal" aria-labelledby="comparison-title">
-            <h3 id="comparison-title">風雲にゃんこ塔との違い</h3>
-            <div class="comparison-table" role="table" aria-label="黄金にゃんこ塔と風雲にゃんこ塔の違い">
-              <div role="row">
-                <strong role="columnheader">比較項目</strong>
-                <strong role="columnheader">黄金にゃんこ塔</strong>
-                <strong role="columnheader">風雲にゃんこ塔</strong>
-              </div>
-              <div role="row">
-                <span role="cell">報酬</span>
-                <span role="cell">増量版。短期開催の回収優先度が高い</span>
-                <span role="cell">通常量。開催時期に応じて進める</span>
-              </div>
-              <div role="row">
-                <span role="cell">50階</span>
-                <span role="cell">無属性とメタル寄りの対策が重要</span>
-                <span role="cell">無属性と古代種の対策が中心</span>
-              </div>
-              <div role="row">
-                <span role="cell">異界にゃんこ塔</span>
-                <span role="cell">出現しない前提で考える</span>
-                <span role="cell">条件達成後の導線になる場合がある</span>
-              </div>
+          <div class="editorial-body reward-stack">
+            <div class="reward-grid">
+              <article class="reward-card reveal">
+                <span class="reward-icon">T</span>
+                <h3>チケット系</h3>
+                <p>にゃんこチケットやレアチケットの回収効率が高く、開催中に登る最大の理由になります。</p>
+              </article>
+              <article class="reward-card reveal">
+                <span class="reward-icon">M</span>
+                <h3>マタタビ・素材</h3>
+                <p>育成素材がまとまって手に入りやすいので、進化待ちキャラが多いほど価値が上がります。</p>
+              </article>
+              <article class="reward-card reveal">
+                <span class="reward-icon">XP</span>
+                <h3>XP・アイテム</h3>
+                <p>ネコボン、スニャイパー、XP など、高難度挑戦を支える消耗品も同時に確保できます。</p>
+              </article>
+              <article class="reward-card reveal">
+                <span class="reward-icon">EX</span>
+                <h3>ミッション報酬</h3>
+                <p>30階、40階、50階の到達報酬は、対象キャラを未取得なら特に優先度が高い枠です。</p>
+              </article>
             </div>
+
+            <article class="comparison-card reveal" aria-labelledby="comparison-title">
+              <div class="comparison-header">
+                <p class="card-kicker">Difference</p>
+                <h3 id="comparison-title">風雲にゃんこ塔との違い</h3>
+              </div>
+              <div class="comparison-table" role="table" aria-label="黄金にゃんこ塔と風雲にゃんこ塔の違い">
+                <div role="row">
+                  <strong role="columnheader">比較項目</strong>
+                  <strong role="columnheader">黄金にゃんこ塔</strong>
+                  <strong role="columnheader">風雲にゃんこ塔</strong>
+                </div>
+                <div role="row">
+                  <span role="cell">報酬</span>
+                  <span role="cell">増量版。短期開催の回収優先度が高い</span>
+                  <span role="cell">通常量。開催時期に応じて進める</span>
+                </div>
+                <div role="row">
+                  <span role="cell">50階</span>
+                  <span role="cell">無属性とメタル寄りの対策が重要</span>
+                  <span role="cell">無属性と古代種の対策が中心</span>
+                </div>
+                <div role="row">
+                  <span role="cell">異界にゃんこ塔</span>
+                  <span role="cell">出現しない前提で考える</span>
+                  <span role="cell">条件達成後の導線になる場合がある</span>
+                </div>
+              </div>
+            </article>
           </div>
         </section>
 
-        <section class="section strategy" id="strategy">
+        <section class="section editorial-section" id="strategy">
           <div class="section-heading reveal">
             <p class="eyebrow">Strategy</p>
             <h2>攻略前に決めること</h2>
             <p>短期開催なので、戦力確認とリトライ資源の管理を先に決めると詰まりにくくなります。</p>
           </div>
-          <div class="strategy-steps">
+          <div class="editorial-body step-grid">
             <article class="step-card reveal">
-              <span>01</span>
-              <h3>まず30階を目標にする</h3>
-              <p>全部制覇が難しい場合でも、節目階のミッションと報酬を優先します。後半に時間を残すため、序盤は編成固定で素早く進めます。</p>
+              <span class="step-number">01</span>
+              <div>
+                <h3>開催ウィンドウを先に確認</h3>
+                <p>5日間開催を前提に、初日からどこまで進めるかを決めます。最終日の駆け込みだけで全回収は狙わない方が安全です。</p>
+              </div>
             </article>
             <article class="step-card reveal">
-              <span>02</span>
-              <h3>40階以降は属性メモを残す</h3>
-              <p>詰まった階は敵構成に合わせて壁、妨害、火力の役割を入れ替えます。無理な連戦より、敗因を一つずつ潰す方が早いです。</p>
+              <span class="step-number">02</span>
+              <div>
+                <h3>まず30階の報酬ラインを取る</h3>
+                <p>全部制覇が難しい場合でも、節目階のミッションと主要報酬を回収します。序盤は編成を固定して素早く進めます。</p>
+              </div>
             </article>
             <article class="step-card reveal">
-              <span>03</span>
-              <h3>50階はクリティカル枠を準備</h3>
-              <p>最終階はメタル対策の有無で安定感が変わります。クリティカル役、足止め、量産壁を別枠で準備してから挑戦します。</p>
+              <span class="step-number">03</span>
+              <div>
+                <h3>40階以降は属性メモを残す</h3>
+                <p>詰まった階は敵構成を短く記録して、壁・妨害・火力の役割を差し替えます。無理な連戦より調整優先です。</p>
+              </div>
+            </article>
+            <article class="step-card reveal">
+              <span class="step-number">04</span>
+              <div>
+                <h3>50階はメタル対策を別枠で準備</h3>
+                <p>通常の風雲塔と同じ感覚で入ると崩れやすい階です。クリティカル役、足止め、量産壁を専用に切り出します。</p>
+              </div>
             </article>
           </div>
         </section>
 
-        <section class="section source-panel reveal" aria-labelledby="source-title">
-          <div>
+        <section class="section editorial-section" id="sources">
+          <div class="section-heading reveal">
             <p class="eyebrow">Sources</p>
-            <h2 id="source-title">確認した公開情報</h2>
+            <h2>確認した公開情報</h2>
+            <p>このページの開催情報と差分整理は、公開されている一次情報と攻略整理を元にしています。</p>
           </div>
-          <ul>
-            <li>
-              <a href="https://www.ponos.jp/news/2026/04/%E3%80%8E%E3%81%AB%E3%82%83%E3%82%93%E3%81%93%E5%A4%A7%E6%88%A6%E4%BA%89%E3%80%8F%E6%9C%9F%E9%96%93%E9%99%90%E5%AE%9A%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%80%8C%E8%B6%85%E6%B0%B4%E6%9B%9C%E3%81%AB/" target="_blank" rel="noreferrer noopener">
-                PONOS 公式ニュース：超水曜にゃんこDAY 開催告知
-              </a>
-            </li>
-            <li>
-              <a href="https://battlecats.club/" target="_blank" rel="noreferrer noopener">にゃんこポータル：公式ポータルサイト</a>
-            </li>
-            <li>
-              <a href="https://game8.jp/battlecats/668265" target="_blank" rel="noreferrer noopener">Game8：黄金にゃんこ塔の攻略と報酬整理</a>
-            </li>
-          </ul>
+          <div class="editorial-body source-grid">
+            <a
+              class="source-card reveal"
+              href="https://www.ponos.jp/news/2026/04/%E3%80%8E%E3%81%AB%E3%82%83%E3%82%93%E3%81%93%E5%A4%A7%E6%88%A6%E4%BA%89%E3%80%8F%E6%9C%9F%E9%96%93%E9%99%90%E5%AE%9A%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%80%8C%E8%B6%85%E6%B0%B4%E6%9B%9C%E3%81%AB/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <p class="card-kicker">Official</p>
+              <h3>PONOS 公式ニュース：超水曜にゃんこDAY 開催告知</h3>
+              <p>開催期間とイベント文脈を確認するための一次情報です。</p>
+            </a>
+            <a
+              class="source-card reveal"
+              href="https://battlecats.club/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <p class="card-kicker">Portal</p>
+              <h3>にゃんこポータル：公式ポータルサイト</h3>
+              <p>公式側のイベント・ゲーム情報導線を確認するための入口です。</p>
+            </a>
+            <a
+              class="source-card reveal"
+              href="https://game8.jp/battlecats/668265"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <p class="card-kicker">Guide</p>
+              <h3>Game8：黄金にゃんこ塔の攻略と報酬整理</h3>
+              <p>開催期間の整理や風雲塔との差分確認に使える公開ガイドです。</p>
+            </a>
+          </div>
         </section>
 
-        <section class="section faq" id="faq">
-          <div class="section-heading centered reveal">
+        <section class="section editorial-section faq-section" id="faq">
+          <div class="section-heading reveal">
             <p class="eyebrow">FAQ</p>
             <h2>よくある確認ポイント</h2>
+            <p>開催情報、難所、公式との関係など、先に確認されやすい点だけを短くまとめています。</p>
           </div>
-          <div class="faq-list">
-            <details class="reveal">
-              <summary>黄金にゃんこ塔は公式イベントですか？</summary>
-              <p>公式ニュースでは、超水曜にゃんこDAYの一部として報酬大増量の特別な黄金にゃんこ塔が案内されています。</p>
-            </details>
-            <details class="reveal">
-              <summary>このページは公式サイトですか？</summary>
-              <p>いいえ。battlecats.lol は非公式の攻略メモです。PONOS公式サイト、公式ポータル、ゲーム内告知とは別のファンサイトです。</p>
-            </details>
-            <details class="reveal">
-              <summary>風雲にゃんこ塔をクリアしていないと無理ですか？</summary>
-              <p>全制覇は風雲にゃんこ塔後半の経験があるほど安定します。ただし、途中階まででも報酬回収の価値があります。</p>
-            </details>
-            <details class="reveal">
-              <summary>一番注意する階はどこですか？</summary>
-              <p>50階です。通常の風雲塔と同じ編成で挑むより、メタル対策を含めた専用編成を用意する方が安全です。</p>
-            </details>
-            <details class="reveal">
-              <summary>異界にゃんこ塔は解放されますか？</summary>
-              <p>黄金にゃんこ塔から異界にゃんこ塔は出現しない前提で計画します。異界側の報酬や進化素材を狙う場合は別途確認してください。</p>
-            </details>
-            <details class="reveal">
-              <summary>開催期間が変わることはありますか？</summary>
-              <p>イベント期間はゲーム内告知が最優先です。このページでは公開情報を整理していますが、ログイン後の告知を必ず確認してください。</p>
-            </details>
+          <div class="editorial-body">
+            <div class="faq-list">
+              <details class="reveal">
+                <summary>黄金にゃんこ塔は公式イベントですか？</summary>
+                <p>公式ニュースでは、超水曜にゃんこDAYの一部として報酬大増量の特別な黄金にゃんこ塔が案内されています。</p>
+              </details>
+              <details class="reveal">
+                <summary>このページは公式サイトですか？</summary>
+                <p>いいえ。battlecats.lol は非公式の攻略メモです。PONOS公式サイト、公式ポータル、ゲーム内告知とは別のファンサイトです。</p>
+              </details>
+              <details class="reveal">
+                <summary>風雲にゃんこ塔をクリアしていないと無理ですか？</summary>
+                <p>全制覇は風雲にゃんこ塔後半の経験があるほど安定します。ただし、途中階まででも報酬回収の価値があります。</p>
+              </details>
+              <details class="reveal">
+                <summary>一番注意する階はどこですか？</summary>
+                <p>50階です。通常の風雲塔と同じ編成で挑むより、メタル対策を含めた専用編成を用意する方が安全です。</p>
+              </details>
+              <details class="reveal">
+                <summary>異界にゃんこ塔は解放されますか？</summary>
+                <p>黄金にゃんこ塔から異界にゃんこ塔は出現しない前提で計画します。異界側の報酬や進化素材を狙う場合は別途確認してください。</p>
+              </details>
+              <details class="reveal">
+                <summary>開催期間が変わることはありますか？</summary>
+                <p>イベント期間はゲーム内告知が最優先です。このページでは公開情報を整理していますが、ログイン後の告知を必ず確認してください。</p>
+              </details>
+            </div>
           </div>
         </section>
       </main>
 
       <footer class="footer">
-        <img src="assets/brand/logo-mark.png" alt="" width="512" height="512" />
-        <p>
-          battlecats.lol は非公式ファンサイトです。「にゃんこ大戦争」および関連名称は PONOS Corp. に帰属します。
-          公式情報はゲーム内告知、PONOS公式サイト、にゃんこポータルを確認してください。
-        </p>
-        <p class="tiny">Last checked: 2026-04-23 / Built as a static page.</p>
+        <div class="footer-frame">
+          <div class="footer-brand">
+            <img src="assets/brand/logo-mark.png" alt="" width="512" height="512" />
+            <div>
+              <p class="footer-title">battlecats.lol</p>
+              <p class="footer-copy">
+                battlecats.lol は非公式ファンサイトです。「にゃんこ大戦争」および関連名称は PONOS Corp. に帰属します。公式情報はゲーム内告知、PONOS公式サイト、にゃんこポータルを確認してください。
+              </p>
+            </div>
+          </div>
+          <div class="footer-links">
+            <a href="#overview">概要</a>
+            <a href="#rewards">報酬</a>
+            <a href="#strategy">攻略</a>
+            <a href="#faq">FAQ</a>
+          </div>
+          <p class="tiny">Last checked: 2026-04-23 / Built as a static page.</p>
+        </div>
       </footer>
     </div>
     <script src="script.js" defer></script>

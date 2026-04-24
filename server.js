@@ -5,6 +5,7 @@ const path = require("path");
 const host = process.env.HOSTNAME || "0.0.0.0";
 const port = Number(process.env.PORT || 3000);
 const root = __dirname;
+const isProduction = process.env.NODE_ENV === "production";
 
 const contentTypes = {
   ".css": "text/css; charset=utf-8",
@@ -24,6 +25,18 @@ const send = (response, statusCode, headers, body) => {
   response.end(body);
 };
 
+const getCacheControl = (ext) => {
+  if (ext === ".html") {
+    return "no-cache";
+  }
+
+  if (!isProduction && (ext === ".css" || ext === ".js")) {
+    return "no-cache";
+  }
+
+  return "public, max-age=31536000, immutable";
+};
+
 const serveFile = (requestPath, response) => {
   const safePath = path.normalize(requestPath).replace(/^(\.\.[/\\])+/, "");
   const resolvedPath = path.join(root, safePath);
@@ -40,7 +53,7 @@ const serveFile = (requestPath, response) => {
     }
 
     const ext = path.extname(resolvedPath).toLowerCase();
-    const cacheControl = ext === ".html" ? "no-cache" : "public, max-age=31536000, immutable";
+    const cacheControl = getCacheControl(ext);
 
     send(
       response,
