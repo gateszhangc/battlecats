@@ -20,4 +20,4 @@ labels:
 images:
   - name: battlecats
     newName: registry.144.91.77.245.sslip.io/battlecats
-    newTag: 5f789a35203e6de6d98bb529825bb04f2a2e6041
+    newTag: 27979a17e26cbda73cd03e490ed7c1e2a0e22465
